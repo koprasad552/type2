@@ -1,0 +1,123 @@
+{
+  "user": {
+    "username": "manager8@lambda.com",
+    "pool": {
+      "userPoolId": "ap-south-1_8FgFULsTo",
+      "clientId": "7be5tjeatbifqk4d1arqi90m45",
+      "paranoia": 0,
+      "client": {
+        "config": {
+          "credentials": {
+            "expired": false,
+            "expireTime": null,
+            "accessKeyId": "ASIAJYX4LZL3IXZNSQAA",
+            "sessionToken": "FQoDYXdzEBYaDKy4xGYM3zGv2AjPfiLxAZytjCQV6MbX4OekRFOtXafqLDKnAVEl621ZmBoQvfE+285nw/eotrlmOyg3i4m7d8HqNUpgTi0o+fzK/uljs0EKBfgVggko7fnJjSZR9IQ4UnE1+7EsJCUeXkS9n0nvJSYEzLoB6r3uSgs1O8KKwERAuRJAjKQoW2RFxoMeaFXBE0UoSj8e1y0TFCnI0AFpUUpSvUAWxNNBvXR2aHxF9/v8mhXA1oFzaFCHQVQuBCjxnV1v8nlG8MCf8/cM7dCXYsoLgMbvzQ5yV7mFtIajZw8M8uJ6lbSlKjROHUxsWKAAV9xrdwQE/o28Wdtm5yRN8Bco2oTl1AU=",
+            "envPrefix": "AWS"
+          },
+          "credentialProvider": {
+            "providers": [
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "region": "ap-south-1",
+          "logger": null,
+          "apiVersions": {},
+          "apiVersion": "2016-04-19",
+          "endpoint": "cognito-idp.ap-south-1.amazonaws.com",
+          "httpOptions": {
+            "timeout": 120000
+          },
+          "maxRedirects": 10,
+          "paramValidation": true,
+          "sslEnabled": true,
+          "s3ForcePathStyle": false,
+          "s3BucketEndpoint": false,
+          "s3DisableBodySigning": true,
+          "computeChecksums": true,
+          "convertResponseTypes": true,
+          "correctClockSkew": false,
+          "customUserAgent": null,
+          "dynamoDbCrc32": true,
+          "systemClockOffset": 0,
+          "signatureVersion": "v4",
+          "signatureCache": true,
+          "retryDelayOptions": {},
+          "useAccelerateEndpoint": false
+        },
+        "isGlobalEndpoint": false,
+        "endpoint": {
+          "protocol": "https:",
+          "host": "cognito-idp.ap-south-1.amazonaws.com",
+          "port": 443,
+          "hostname": "cognito-idp.ap-south-1.amazonaws.com",
+          "pathname": "/",
+          "path": "/",
+          "href": "https://cognito-idp.ap-south-1.amazonaws.com/"
+        },
+        "_clientId": 1
+      }
+    },
+    "Session": null,
+    "client": {
+      "config": {
+        "credentials": {
+          "expired": false,
+          "expireTime": null,
+          "accessKeyId": "ASIAJYX4LZL3IXZNSQAA",
+          "sessionToken": "FQoDYXdzEBYaDKy4xGYM3zGv2AjPfiLxAZytjCQV6MbX4OekRFOtXafqLDKnAVEl621ZmBoQvfE+285nw/eotrlmOyg3i4m7d8HqNUpgTi0o+fzK/uljs0EKBfgVggko7fnJjSZR9IQ4UnE1+7EsJCUeXkS9n0nvJSYEzLoB6r3uSgs1O8KKwERAuRJAjKQoW2RFxoMeaFXBE0UoSj8e1y0TFCnI0AFpUUpSvUAWxNNBvXR2aHxF9/v8mhXA1oFzaFCHQVQuBCjxnV1v8nlG8MCf8/cM7dCXYsoLgMbvzQ5yV7mFtIajZw8M8uJ6lbSlKjROHUxsWKAAV9xrdwQE/o28Wdtm5yRN8Bco2oTl1AU=",
+          "envPrefix": "AWS"
+        },
+        "credentialProvider": {
+          "providers": [
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "region": "ap-south-1",
+        "logger": null,
+        "apiVersions": {},
+        "apiVersion": "2016-04-19",
+        "endpoint": "cognito-idp.ap-south-1.amazonaws.com",
+        "httpOptions": {
+          "timeout": 120000
+        },
+        "maxRedirects": 10,
+        "paramValidation": true,
+        "sslEnabled": true,
+        "s3ForcePathStyle": false,
+        "s3BucketEndpoint": false,
+        "s3DisableBodySigning": true,
+        "computeChecksums": true,
+        "convertResponseTypes": true,
+        "correctClockSkew": false,
+        "customUserAgent": null,
+        "dynamoDbCrc32": true,
+        "systemClockOffset": 0,
+        "signatureVersion": "v4",
+        "signatureCache": true,
+        "retryDelayOptions": {},
+        "useAccelerateEndpoint": false
+      },
+      "isGlobalEndpoint": false,
+      "endpoint": {
+        "protocol": "https:",
+        "host": "cognito-idp.ap-south-1.amazonaws.com",
+        "port": 443,
+        "hostname": "cognito-idp.ap-south-1.amazonaws.com",
+        "pathname": "/",
+        "path": "/",
+        "href": "https://cognito-idp.ap-south-1.amazonaws.com/"
+      },
+      "_clientId": 1
+    },
+    "signInUserSession": null,
+    "authenticationFlowType": "USER_SRP_AUTH"
+  },
+  "userConfirmed": true,
+  "userSub": "58949985-51de-4582-af79-c7da66100f81"
+}

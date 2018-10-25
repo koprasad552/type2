@@ -1,0 +1,784 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Development
+      Name: Web-final-api
+      DefinitionBody:
+        swagger: 2.0
+        info:
+          title:
+            Ref: AWS::StackName
+        definitions: 
+          Empty:
+            type: "object"
+            title: "Empty Schema"
+        x-amazon-apigateway-gateway-responses:
+          ACCESS_DENIED:
+            statusCode: 403
+            responseParameters:
+              gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{\"message\":$context.error.messageString}"
+          UNAUTHORIZED:
+            statusCode: 401
+            responseParameters:
+              gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{\"message\":$context.error.messageString}"
+          EXPIRED_TOKEN:
+            statusCode: 403
+            responseParameters:
+              gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{\"message\":$context.error.messageString}"
+        x-amazon-apigateway-binary-media-types:
+        - "multipart/form-data"
+        securityDefinitions:
+          lambdaAuth:
+            type: apiKey
+            name: Authorization
+            in: header
+            x-amazon-apigateway-authtype: custom
+            x-amazon-apigateway-authorizer:
+              type: request
+              authorizerUri:
+                Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforceAuth.Arn}/invocations
+              authorizerResultTtlInSeconds: 1
+              identitySource: method.request.header.Authorization      
+          cognito_auth:
+            type: apiKey
+            name: Authorization
+            in: header
+            x-amazon-apigateway-authtype: cognito_user_pools
+            x-amazon-apigateway-authorizer:
+              type: cognito_user_pools
+              providerARNs: 
+              - arn:aws:cognito-idp:ap-south-1:204006638324:userpool/ap-south-1_zNMeUGg0o
+        paths:
+          "/analytics":
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                passthroughBehavior: "when_no_match"
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string" 
+
+          "/analytics/driverlog":
+            get:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforceAnalyticsdriverLoggetMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []
+           
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                passthroughBehavior: "when_no_match"
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string" 
+
+          "/analytics/ontime":
+            get:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforceAnalyticsontimegetMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: [] 
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'POST,OPTIONS'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                   
+                passthroughBehavior: "when_no_match"
+
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string" 
+          "/analytics/taskcomplete":
+            get:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforceAnalyticstaskcompletegetMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'POST,OPTIONS'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                   
+                passthroughBehavior: "when_no_match"
+
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string"  
+          "/analytics/topagent":
+            get:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforceAnalyticsTopagentMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []
+          "/customer":
+            get:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforcecustomergetMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'POST,OPTIONS'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                   
+                passthroughBehavior: "when_no_match"
+
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string"
+            put:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforcecustomerputMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []
+            delete:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforcecustomerdeleteMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []
+          "/customer/all":
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'POST,OPTIONS'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                   
+                passthroughBehavior: "when_no_match"
+
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string" 
+          "/signup":
+            options:
+              summary: CORS support
+              description: |
+                Enable CORS by returning correct headers
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              tags:
+                - CORS
+              x-amazon-apigateway-integration:
+                type: mock
+                requestTemplates:
+                  application/json: |
+                    {
+                      "statusCode" : 200
+                    }
+                responses:
+                  "default":
+                     statusCode: "200"
+                     responseParameters:
+                       method.response.header.Access-Control-Allow-Headers : "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                       method.response.header.Access-Control-Allow-Methods : "'POST,OPTIONS'"
+                       method.response.header.Access-Control-Allow-Origin : "'*'"
+                   
+                passthroughBehavior: "when_no_match"
+
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Headers:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Origin:
+                      type: "string" 
+                   
+
+            post:
+              consumes:
+                - application/json
+              produces:
+                - application/json
+              x-amazon-apigateway-integration:
+                httpMethod: post
+                type: aws_proxy
+                requestTemplates:
+                  application/json: |
+                    {
+                       "statusCode" : 200
+                    }
+                responses:
+                   "default":
+                      statusCode: "200"
+                      responseParameters:
+                        method.response.header.Access-Control-Allow-Origin: "'*'"
+                passthroughBehavior: "when_no_match"
+                contentHandling: "CONVERT_TO_TEXT"
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeliforceCognitoSignupMethod.Arn}/invocations
+              responses:
+                '200':
+                  description: Default response for CORS method
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              security:
+                - lambdaAuth: []   
+
+
+
+
+  DeliforceCognitoSignupMethod:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Deliforce_coginito_signup
+      Timeout: 300
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: s3://deliforcesck/5723dc29a4dc25edf05cb3260671f9ee
+      Policies: AWSLambdaFullAccess
+      Role: arn:aws:iam::120107595195:role/favas-poc
+      Events:
+       PostApi:
+         Type: Api
+         Properties:
+           Path: /signup
+           Method: post
+           RestApiId:
+             Ref: ApiGateway
+
+
+  DeliforceAnalyticsTopagentMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_Analytics_topagent_get
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/e1e69a26d076a3e994387f39bf1a5521
+       Policies: AWSLambdaFullAccess
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /analytics/topagent
+            Method: get
+            RestApiId:
+                Ref: ApiGateway
+
+
+  DeliforceAnalyticstaskcompletegetMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_Analytics_taskcomplete_get
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/4bcff33797a5748fa47c9837f46dd3eb
+       Policies: AWSLambdaFullAccess
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /analytics/taskcomplete
+            Method: get
+            RestApiId:
+                Ref: ApiGateway
+  DeliforceAnalyticsdriverLoggetMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_Analytics_driverLog_get
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/44754f069d53a57c71015adbee875862
+       Policies: AWSLambdaFullAccess
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /analytics/driverlog
+            Method: get
+            RestApiId:
+                Ref: ApiGateway
+
+
+
+
+  DeliforceAnalyticsontimegetMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_Analytics_ontime_get
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/7d228917fd924a248ebed567a39640c3
+       Policies: AWSLambdaFullAccess
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /analytics/ontime
+            Method: get
+            RestApiId:
+                Ref: ApiGateway
+
+
+  DeliforcecustomerputMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_customer_put
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/c1469927322d8552d804a5bd93582413
+       Policies: AWSLambdaFullAccess
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        PutApi:
+          Type: Api
+          Properties:
+            Path: /customer
+            Method: put
+            RestApiId:
+                Ref: ApiGateway
+
+
+ 
+  DeliforcecustomergetMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_customer_get
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/2809b04798723ee08189f55918e8ec66
+       Policies: AWSLambdaFullAccess   
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        GetApi:
+          Type: Api
+          Properties:
+            Path: /customer
+            Method: get
+            RestApiId:
+                Ref: ApiGateway
+
+
+  DeliforcecustomerdeleteMethod:
+     Type: AWS::Serverless::Function
+     Properties:
+       FunctionName: Deliforce_customer_delete
+       Timeout: 300
+       Handler: index.handler
+       Runtime: nodejs6.10
+       CodeUri: s3://deliforcesck/d43e5f5a4d901b736ad371dbc7875e25
+       Policies: AWSLambdaFullAccess
+       Role: arn:aws:iam::120107595195:role/favas-poc
+       Events:
+        DeleteApi:
+          Type: Api
+          Properties:
+            Path: /customer
+            Method: delete
+            RestApiId:
+                Ref: ApiGateway
+  
+  DeliforceAuth:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Deliforce_roles_permission
+      Timeout: 300
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: s3://deliforcesck/78fe352f2a48361ae660bd2ea3c3a981
+      Policies: AWSLambdaFullAccess
+      Role: arn:aws:iam::120107595195:role/favas-poc 
+
+  TestAuthorizerFuncPerm:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+      - ApiGateway
+      - DeliforceAuth
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Ref: DeliforceAuth
+      Principal: apigateway.amazonaws.com
+
