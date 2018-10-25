@@ -607,7 +607,7 @@ Resources:
       Timeout: 300
       Handler: index.handler
       Runtime: nodejs6.10
-      CodeUri: s3://deliforcesck/5723dc29a4dc25edf05cb3260671f9ee
+      CodeUri: ./Deliforce_coginito_signup
       Policies: AWSLambdaFullAccess
       Role: arn:aws:iam::539977196287:role/favas-poc
       Events:
@@ -627,7 +627,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/e1e69a26d076a3e994387f39bf1a5521
+       CodeUri: Deliforce_Analytics_topagent_get
        Policies: AWSLambdaFullAccess
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -647,7 +647,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/4bcff33797a5748fa47c9837f46dd3eb
+       CodeUri: ./Deliforce_Analytics_taskcomplete_get
        Policies: AWSLambdaFullAccess
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -665,7 +665,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/44754f069d53a57c71015adbee875862
+       CodeUri: ./Deliforce_Analytics_driverLog_get
        Policies: AWSLambdaFullAccess
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -687,7 +687,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/7d228917fd924a248ebed567a39640c3
+       CodeUri: ./Deliforce_Analytics_ontime_get
        Policies: AWSLambdaFullAccess
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -707,7 +707,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/c1469927322d8552d804a5bd93582413
+       CodeUri: ./Deliforce_customer_put
        Policies: AWSLambdaFullAccess
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -728,7 +728,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/2809b04798723ee08189f55918e8ec66
+       CodeUri: ./Deliforce_customer_get
        Policies: AWSLambdaFullAccess   
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -748,7 +748,7 @@ Resources:
        Timeout: 300
        Handler: index.handler
        Runtime: nodejs6.10
-       CodeUri: s3://deliforcesck/d43e5f5a4d901b736ad371dbc7875e25
+       CodeUri: ./Deliforce_customer_delete
        Policies: AWSLambdaFullAccess
        Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
@@ -767,7 +767,7 @@ Resources:
       Timeout: 300
       Handler: index.handler
       Runtime: nodejs6.10
-      CodeUri: s3://deliforcesck/78fe352f2a48361ae660bd2ea3c3a981
+      CodeUri: ./Deliforce_roles_permission
       Policies: AWSLambdaFullAccess
       Role: arn:aws:iam::539977196287:role/favas-poc 
 
