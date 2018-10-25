@@ -56,7 +56,7 @@ Resources:
             x-amazon-apigateway-authorizer:
               type: cognito_user_pools
               providerARNs: 
-              - arn:aws:cognito-idp:ap-south-1:204006638324:userpool/ap-south-1_zNMeUGg0o
+              - arn:aws:cognito-idp:ap-south-1:539977196287:userpool/ap-south-1_VPP4uI5dP
         paths:
           "/analytics":
             options:
@@ -609,7 +609,7 @@ Resources:
       Runtime: nodejs6.10
       CodeUri: s3://deliforcesck/5723dc29a4dc25edf05cb3260671f9ee
       Policies: AWSLambdaFullAccess
-      Role: arn:aws:iam::120107595195:role/favas-poc
+      Role: arn:aws:iam::539977196287:role/favas-poc
       Events:
        PostApi:
          Type: Api
@@ -629,7 +629,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/e1e69a26d076a3e994387f39bf1a5521
        Policies: AWSLambdaFullAccess
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         GetApi:
           Type: Api
@@ -649,7 +649,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/4bcff33797a5748fa47c9837f46dd3eb
        Policies: AWSLambdaFullAccess
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         GetApi:
           Type: Api
@@ -667,7 +667,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/44754f069d53a57c71015adbee875862
        Policies: AWSLambdaFullAccess
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         GetApi:
           Type: Api
@@ -689,7 +689,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/7d228917fd924a248ebed567a39640c3
        Policies: AWSLambdaFullAccess
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         GetApi:
           Type: Api
@@ -709,7 +709,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/c1469927322d8552d804a5bd93582413
        Policies: AWSLambdaFullAccess
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         PutApi:
           Type: Api
@@ -730,7 +730,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/2809b04798723ee08189f55918e8ec66
        Policies: AWSLambdaFullAccess   
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         GetApi:
           Type: Api
@@ -750,7 +750,7 @@ Resources:
        Runtime: nodejs6.10
        CodeUri: s3://deliforcesck/d43e5f5a4d901b736ad371dbc7875e25
        Policies: AWSLambdaFullAccess
-       Role: arn:aws:iam::120107595195:role/favas-poc
+       Role: arn:aws:iam::539977196287:role/favas-poc
        Events:
         DeleteApi:
           Type: Api
@@ -769,7 +769,7 @@ Resources:
       Runtime: nodejs6.10
       CodeUri: s3://deliforcesck/78fe352f2a48361ae660bd2ea3c3a981
       Policies: AWSLambdaFullAccess
-      Role: arn:aws:iam::120107595195:role/favas-poc 
+      Role: arn:aws:iam::539977196287:role/favas-poc 
 
   TestAuthorizerFuncPerm:
     Type: AWS::Lambda::Permission
