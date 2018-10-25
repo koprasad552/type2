@@ -759,6 +759,17 @@ Resources:
             Method: delete
             RestApiId:
                 Ref: ApiGateway
+
+  DeliforceAuth:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Deliforce_roles_permission
+      Timeout: 300
+      Handler: index.handler
+      Runtime: nodejs6.10
+      CodeUri: ./Deliforce_roles_permission
+      Policies: AWSLambdaFullAccess
+      Role: arn:aws:iam::539977196287:role/favas-poc
   
   
   TestAuthorizerFuncPerm:
