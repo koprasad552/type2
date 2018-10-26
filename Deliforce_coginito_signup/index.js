@@ -16,6 +16,7 @@ try {
 
     cb = callback;
     context.callbackWaitsForEmptyEventLoop = false;
+/////////////testing for type 2 process//////////////////////////
 
     getConstant.then(() => {
       //imports
